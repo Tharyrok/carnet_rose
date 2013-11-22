@@ -1,11 +1,25 @@
+# encoding: utf-8
+
+from datetime import datetime
 from django.db import models
 
+juridical_form_choices = (
+    ('pp', 'Personne physique'),
+    ('pm', 'Personne morale'),
+)
 
 class Member(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255) 
-    last_paid_date = models.DateField(null=True, blank=True)
-    moral_entity = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=255, verbose_name="Prénom")
+    last_name = models.CharField(max_length=255, verbose_name="Nom")
+    last_paid_date = models.DateField(null=True, blank=True, verbose_name="Dernière date de versement de la costisation")
+    juridical_form = models.CharField(choices=juridical_form_choices, default="pp", max_length=3, verbose_name="Forme juridique", help_text="99% du du temps ce sera 'personne physique' (un individu)")
+    address = models.CharField(max_length=500, null=True, blank=True, verbose_name="Lieu d'envoie du courrier")
+    email = models.EmailField(null=True, blank=True)
+    member_since = models.DateField(default=datetime.today, verbose_name="Membre depuis le")
+    member_end = models.DateField(null=True, blank=True, verbose_name="N'est plus membre depuis")
+    why_member_end = models.TextField(null=True, blank=True, verbose_name="Pourquoi il n'est plus membre")
+    ca_member = models.BooleanField(default=False, verbose_name="Membre du conseil d'administration ?")
+    ca_function = models.CharField(max_length=255, null=True, blank=True, verbose_name="Rôle dans le conseil d'administration")
 
     def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)
