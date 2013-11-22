@@ -11,13 +11,13 @@ class MemberAdmin(reversion.VersionAdmin):
     radio_fields = {"juridical_form": admin.HORIZONTAL}
     fieldsets = (
         ('Information générales', {
-            'fields': (('first_name', 'last_name', 'juridical_form'), ('address', 'email')),
+            'fields': (('first_name', 'last_name',), ('address', 'email'), 'juridical_form'),
         }),
         ('Cotisation', {
             'fields': (('member_since', 'last_paid_date'),),
         }),
         ('Conseil d\'administration', {
-            'fields': ('ca_member', 'ca_function'),
+            'fields': (('ca_member', 'ca_function'),),
         }),
         ('Résignation', {
             'fields': ('member_end', 'why_member_end'),
