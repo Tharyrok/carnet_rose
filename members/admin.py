@@ -5,9 +5,27 @@ from django.contrib import admin
 from .models import Member
 
 
+class IsStillMember(admin.SimpleListFilter):
+    title = 'Est membre'
+    parameter_name = 'is_member'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('yes', 'Oui'),
+            ('no', 'Non'),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == 'yes':
+            return queryset.filter(member_end__isnull=True)
+
+        if self.value() == 'no':
+            return queryset.filter(member_end__isnull=False)
+
+
 class MemberAdmin(reversion.VersionAdmin):
     list_display = ('first_name', 'last_name', 'last_paid_date', 'ca_member')
-    list_filter = ('last_paid_date', 'ca_member', )
+    list_filter = ('last_paid_date', 'ca_member', IsStillMember)
     radio_fields = {"juridical_form": admin.HORIZONTAL}
     fieldsets = (
         ('Information générales', {
