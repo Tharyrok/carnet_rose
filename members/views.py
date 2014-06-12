@@ -20,6 +20,10 @@ def ffdn_api(request):
                 "technologies": ["wifi"],
             }
         ],
+        "coordinates": {
+            "latitude": 50.84,
+            "longitude": 4.35,
+        },
         "version": 0.1
     }
 
