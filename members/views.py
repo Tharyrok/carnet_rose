@@ -1,3 +1,26 @@
-from django.shortcuts import render
+import json
+from django.http import HttpResponse
 
-# Create your views here.
+from .models import Member
+
+
+def ffdn_api(request):
+    response = {
+        "name": "Neutrinet",
+        "email": "contact@neutrinet.be",
+        "website": "http://neutrinet.be",
+        "mainMailingList": "neutrinet@lists.entransition.be",
+        "progressStatus": 5,
+        "memberCount": Member.objects.filter(member_end__isnull=True).count(),
+        "subscriberCount": 0,
+        "chatrooms": ["irc://irc.freenode.net#neutrinet"],
+        "coveredAreas": [
+            {
+                "name": "Brussels",
+                "technologies": ["wifi"],
+            }
+        ],
+        "version": 0.1
+    }
+
+    return HttpResponse(json.dumps(response, indent=4))
