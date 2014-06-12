@@ -8,6 +8,7 @@ def ffdn_api(request):
     response = {
         "name": "Neutrinet",
         "email": "contact@neutrinet.be",
+        "description": "Neutrinet is a project to setup an associative ISP in Belgium, focusing so far on the area of Brussels (open to other cities)",
         "website": "http://neutrinet.be",
         "mainMailingList": "neutrinet@lists.entransition.be",
         "progressStatus": 5,
