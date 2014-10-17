@@ -20,6 +20,7 @@ class Member(models.Model):
     why_member_end = models.TextField(null=True, blank=True, verbose_name="Pourquoi il n'est plus membre")
     ca_member = models.BooleanField(default=False, verbose_name="Membre du conseil d'administration ?")
     ca_function = models.CharField(max_length=255, null=True, blank=True, verbose_name="Rôle dans le conseil d'administration")
+    billing_id = models.CharField(max_length=255, null=True, blank=True, verbose_name="Identifiant de domiciliation", help_text="Identifiant donné à l'usagé qu'il doit mettre sur ses virements (pour le VPN pour l'instant)")
 
     def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)
