@@ -35,6 +35,9 @@ class MemberAdmin(reversion.VersionAdmin):
         ('Cotisation', {
             'fields': (('member_since', 'last_paid_date'),),
         }),
+        ('Abonnements', {
+            'fields': (('vpn', 'cube'),),
+        }),
         ('Conseil d\'administration', {
             'fields': (('ca_member', 'ca_function'),),
         }),
