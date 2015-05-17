@@ -22,6 +22,9 @@ class Member(models.Model):
     ca_function = models.CharField(max_length=255, null=True, blank=True, verbose_name="Rôle dans le conseil d'administration")
     billing_id = models.CharField(max_length=255, null=True, blank=True, verbose_name="Identifiant de domiciliation", help_text="Identifiant donné à l'usagé qu'il doit mettre sur ses virements (pour le VPN pour l'instant)")
 
+    vpn = models.BooleanField(default=False, verbose_name="a un abonnement vpn")
+    cube = models.BooleanField(default=False, verbose_name="possède une brique")
+
     def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
