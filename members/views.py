@@ -11,7 +11,7 @@ def ffdn_api(request):
         "description": "Neutrinet is a project to setup an associative ISP in Belgium, focusing so far on the area of Brussels (open to other cities)",
         "website": "http://neutrinet.be",
         "mainMailingList": "neutrinet@lists.entransition.be",
-        "progressStatus": 5,
+        "progressStatus": 7,
         "memberCount": Member.objects.filter(member_end__isnull=True).count(),
         "subscriberCount": 0,
         "chatrooms": ["irc://irc.freenode.net#neutrinet"],
