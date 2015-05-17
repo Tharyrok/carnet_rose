@@ -18,7 +18,7 @@ def ffdn_api(request):
         "coveredAreas": [
             {
                 "name": "Brussels",
-                "technologies": ["wifi"],
+                "technologies": ["vpn", "brique"],
             }
         ],
         "coordinates": {
