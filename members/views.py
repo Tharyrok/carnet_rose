@@ -12,7 +12,7 @@ def ffdn_api(request):
         "website": "http://neutrinet.be",
         "mainMailingList": "neutrinet@lists.entransition.be",
         "progressStatus": 7,
-        "memberCount": Member.objects.filter(member_end__isnull=True).count(),
+        "memberCount": Member.objects.filter(member_end__isnull=True, is_not_a_member_yet=False).count(),
         "subscriberCount": Member.objects.filter(vpn=True).count(),
         "chatrooms": ["irc://irc.freenode.net#neutrinet"],
         "coveredAreas": [
