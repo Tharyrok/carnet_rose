@@ -25,7 +25,7 @@ class IsStillMember(admin.SimpleListFilter):
 
 class MemberAdmin(reversion.VersionAdmin):
     list_display = ('first_name', 'last_name', 'last_paid_date', 'ca_member', 'vpn', 'cube', 'is_not_a_member_yet')
-    list_filter = ('last_paid_date', 'ca_member', IsStillMember, 'is_not_a_member_yet')
+    list_filter = ('last_paid_date', 'ca_member', IsStillMember, 'vpn', 'cube', 'is_not_a_member_yet')
     radio_fields = {"juridical_form": admin.HORIZONTAL}
     search_fields = ('first_name', 'last_name')
     fieldsets = (
