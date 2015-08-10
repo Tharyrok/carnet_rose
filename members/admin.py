@@ -30,7 +30,7 @@ class MemberAdmin(reversion.VersionAdmin):
     search_fields = ('first_name', 'last_name')
     fieldsets = (
         ('Information générales', {
-            'fields': (('first_name', 'last_name',), ('address', 'email'), ('juridical_form', 'billing_id')),
+            'fields': (('first_name', 'last_name',), ('address', 'email'), ('juridical_form', 'billing_id'), 'comments'),
         }),
         ('Cotisation', {
             'fields': (('member_since', 'last_paid_date'), ('is_not_a_member_yet',)),

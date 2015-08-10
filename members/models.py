@@ -24,6 +24,8 @@ class Member(models.Model):
 
     is_not_a_member_yet = models.BooleanField(default=False, help_text="Cette personne a commandé une brique avec un access VPN mais n'a pas envoyé commencé à payer son abonnement VPN mais doit le faire. Elle sera considéré comme membre quand ça sera fait.")
 
+    comments = models.TextField(blank=True, null=True, help_text="Random comments regarding the current situation of this member like 'paying vpn by cash' or sometehing like that.")
+
     vpn = models.BooleanField(default=False, verbose_name="a un abonnement vpn")
     cube = models.BooleanField(default=False, verbose_name="possède une brique")
 
