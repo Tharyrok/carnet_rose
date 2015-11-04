@@ -1,4 +1,10 @@
 -extends "bootstrap3/bootstrap3.html"
 
 -block bootstrap3_content
-  %b pouet
+  .container
+    %h1 Neutrinet Public (not yet actually) Accounting Page
+    %hr
+
+    %ul
+      -for i in movement_list
+        %li= i
