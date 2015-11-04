@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'reversion',
     'members',
+    'accounts',
 )
 
 MIDDLEWARE_CLASSES = (
