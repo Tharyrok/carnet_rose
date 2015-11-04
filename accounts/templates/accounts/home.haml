@@ -5,6 +5,42 @@
     %h1 Neutrinet Public (not yet actually) Accounting Page
     %hr
 
-    %ul
-      -for i in movement_list
-        %li= i
+    -regroup movement_list by date.year as movement_list
+
+    -for movement_year in movement_list
+      %table.table.table-bordered
+        %tr
+          %th #
+          %th Date
+          %th Communication
+          %th Debit
+          %th Credit
+        -for movement in movement_year.list
+          %tr
+            %td
+            %td= movement.date
+            %td= movement.title
+            %td
+              -if movement.kind == "debit"
+                =movement.amount
+            %td
+              -if movement.kind == "credit"
+                =movement.amount
+
+        %tr
+          %td
+          %td
+          %td
+            %b Total
+          %td
+
+      .row
+        .col-md-6.col-md-offset-6
+          %table.table.table-bordered
+            %tr
+              %td
+                %b Solde exercice précédent
+              %td
+            %tr
+              %td
+                %b Solde au {{ movement_year.grouper }}-12-31
