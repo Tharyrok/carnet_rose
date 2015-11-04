@@ -25,12 +25,14 @@
             %td
             %td= movement.date
             %td= movement.title
-            %td
+            %td.money
               -if movement.kind == "debit"
                 =movement.amount
-            %td
+                €
+            %td.money
               -if movement.kind == "credit"
                 =movement.amount
+                €
 
         %tr
           %td
@@ -54,5 +56,9 @@
 
   :css
     th {
+      text-align: center;
+    }
+
+    .money {
       text-align: center;
     }
