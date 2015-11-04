@@ -67,8 +67,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'carnet_rose',
         'USER': getpass.getuser(),
-        'HOST': '127.0.0.1',
-	'PORT': '',
     }
 }
 
