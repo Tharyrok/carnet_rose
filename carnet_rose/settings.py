@@ -23,8 +23,6 @@ SECRET_KEY = 'myb!pdw(1l$0fline4!#kmu!0rohl-1zem5ja$u8(x8kln3j$p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = ['*']
 
 
