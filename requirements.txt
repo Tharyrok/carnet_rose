@@ -3,3 +3,5 @@ django-reversion
 psycopg2
 django-admin-bootstrapped>=2.0
 django_extensions
+django-bootstrap3
+hamlpy
