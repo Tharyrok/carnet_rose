@@ -1,4 +1,5 @@
 -extends "bootstrap3/bootstrap3.html"
+-load accounts_tags
 
 -block bootstrap3_content
   .container
@@ -37,9 +38,12 @@
         %tr
           %td
           %td
-          %td
+          %td.total
             %b Total
-          %td
+          %td.money{colspan: 2}
+            %b
+              -current_year_total movement_year.grouper
+              €
 
       .row
         .col-md-6.col-md-offset-6
@@ -61,4 +65,8 @@
 
     .money {
       text-align: center;
+    }
+
+    .total {
+      text-align: right;
     }
