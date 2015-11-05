@@ -53,10 +53,15 @@
             %tr
               %td
                 %b Solde exercice précédent
-              %td
+              %td.money
+                -previous_year_sold movement_year.grouper
+                €
             %tr
               %td
                 %b Solde au {{ movement_year.grouper }}-12-31
+              %td.money
+                -current_year_sold movement_year.grouper
+                €
 
   :css
     th {

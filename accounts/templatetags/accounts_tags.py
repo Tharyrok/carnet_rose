@@ -1,3 +1,5 @@
+from datetime import date
+
 from django import template
 from django.db.models import Sum
 
@@ -18,6 +20,16 @@ def sum_movements(**kwargs):
         debit = 0
 
     return credit - debit
+
+@register.simple_tag
+def previous_year_sold(year):
+    return sum_movements(date__lte=date(year=year - 1, month=12, day=31))
+
+
+@register.simple_tag
+def current_year_sold(year):
+    return sum_movements(date__lte=date(year=year, month=12, day=31))
+
 
 @register.simple_tag
 def current_year_total(year):
