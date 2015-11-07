@@ -9,6 +9,8 @@ class Movement(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     kind = models.CharField(choices=(('credit', 'Crédit'), ('debit', 'Débit')), max_length=6)
 
+    bank_id = models.CharField(max_length=255, unique=True, null=True, blank=True, editable=False)
+
     comment = models.TextField(null=True, blank=True)
 
     added_on = models.DateTimeField(auto_now_add=True)
