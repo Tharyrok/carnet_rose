@@ -1,5 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+from .forms import CSVUploaderForm
+
+
 def upload_record_bank_csv(request):
-    pass
+    return render(request, "accounts/upload_record_bank_csv.haml", {
+        "form": CSVUploaderForm(),
+    })
