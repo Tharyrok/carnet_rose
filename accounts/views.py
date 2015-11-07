@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import View
 
 from .forms import CSVUploaderForm
+from . import banks
 
 
 class UploadRecordBankCsv(View):
@@ -9,3 +10,13 @@ class UploadRecordBankCsv(View):
         return render(request, "accounts/upload_record_bank_csv.haml", {
             "form": CSVUploaderForm(),
         })
+
+    def post(self, request):
+        form = CSVUploaderForm(request.POST, request.FILES)
+
+        if not form.is_valid():
+            return render(request, "accounts/upload_record_bank_csv.haml", {
+                "form": form,
+            })
+
+        report_id = banks.handle_recordbank_csv(form.cleaned_data["csv_file"])
