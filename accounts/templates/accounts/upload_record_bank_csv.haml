@@ -7,7 +7,7 @@
 
     .row
       .col-md-4
-        %form.upload_form
+        %form.upload_form{method: "post", enctype: "multipart/form-data"}
           -csrf_token
 
           .form-group
