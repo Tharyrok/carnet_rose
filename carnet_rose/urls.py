@@ -7,7 +7,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', RedirectView.as_view(url="admin")),
+    url(r'^$', RedirectView.as_view(url="admin", permanent=False)),
     url(r'^accounts/', include("accounts.urls")),
     url(r'^isp.json$', ffdn_api),
     url(r'^admin/', include(admin.site.urls)),
