@@ -63,6 +63,13 @@
                 -current_year_sold movement_year.grouper
                 €
 
+    %hr
+
+    %p.center
+      %b
+        %a{href: "{% url 'accounts_upload_record_bank_csv' %}"}
+          Upload page for record bank CSV
+
   :css
     th {
       text-align: center;
@@ -74,4 +81,8 @@
 
     .total {
       text-align: right;
+    }
+
+    .center {
+      text-align: center;
     }
