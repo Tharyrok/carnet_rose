@@ -8,5 +8,5 @@ from . import views
 
 urlpatterns = patterns('',
     url(r'^$', ListView.as_view(model=Movement, template_name="accounts/home.haml"), name='accounts_home'),
-    url(r'^upload_record_bank_csv/$', views.upload_record_bank_csv, name='accounts_upload_record_bank_csv'),
+    url(r'^upload_record_bank_csv/$', views.UploadRecordBankCsv.as_view(), name='accounts_upload_record_bank_csv'),
 )
