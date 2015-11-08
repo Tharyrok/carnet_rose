@@ -26,3 +26,6 @@ class Movement(models.Model):
 class ImportReport(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return u"Import report runned at %s" % (self.created_on.strftime("%F %X"))
