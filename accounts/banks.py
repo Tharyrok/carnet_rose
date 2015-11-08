@@ -52,7 +52,7 @@ def handle_recordbank_csv(csv_file):
                 for_report["need_title"].append(movement)
             else:
                 movement.title = title
-                for_report["guessed_title"].append(movement)
+                for_report["guessed_title"].append((movement, entry["Mededeling 1 :"], entry["Naam v/d tegenpartij :"]))
 
             movement.save()
 
