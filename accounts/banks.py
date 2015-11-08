@@ -2,6 +2,8 @@ import csv
 from datetime import datetime
 from StringIO import StringIO
 
+from django.db import transaction
+
 from .models import Movement
 
 def handle_recordbank_csv(csv_file):
@@ -12,39 +14,45 @@ def handle_recordbank_csv(csv_file):
         "skip_because_already_imported": [],
     }
 
-    for entry in csv.DictReader(StringIO("\r\n".join(csv_file.read().split("\n")[1:]) + "\r\n"), delimiter=";"):
-        movement = Movement()
-        movement.bank_id = entry["Ref. v/d verrichting"]
-        movement.date = datetime.strptime(entry["Datum v. verrichting"], "%d-%m-%Y").date()
-        movement.amount = float(entry["Bedrag v/d verrichting"].replace(".", "").replace(",", "."))
+    with transaction.atomic():
+        for entry in csv.DictReader(StringIO("\r\n".join(csv_file.read().split("\n")[1:]) + "\r\n"), delimiter=";"):
+            movement = Movement()
+            movement.bank_id = entry["Ref. v/d verrichting"]
+            movement.date = datetime.strptime(entry["Datum v. verrichting"], "%d-%m-%Y").date()
+            movement.amount = float(entry["Bedrag v/d verrichting"].replace(".", "").replace(",", "."))
 
-        if movement.amount < 0:
-            movement.kind = "debit"
+            if movement.amount < 0:
+                movement.kind = "debit"
 
-            # XXX could we have float errors here?
-            # I might want to do string parsing to remove the "-"
-            # but that sucks
-            movement.amount = -1 * movement.amount
-        else:
-            movement.kind = "credit"
+                # XXX could we have float errors here?
+                # I might want to do string parsing to remove the "-"
+                # but that sucks
+                movement.amount = -1 * movement.amount
+            else:
+                movement.kind = "credit"
 
-        movement.comment = "From: %s\nCommunition: '%s'" % (entry["Naam v/d tegenpartij :"], entry["Mededeling 1 :"])
+            movement.comment = "From: %s\nCommunition: '%s'" % (entry["Naam v/d tegenpartij :"], entry["Mededeling 1 :"])
 
-        movement.title = "FIXME"
+            movement.title = "FIXME"
 
-        # I've already imported this movement, don't do anything
-        if Movement.objects.filter(bank_id=entry["Ref. v/d verrichting"]).exists():
-            for_report["skip_because_already_imported"].append(movement)
-            continue
+            # I've already imported this movement, don't do anything
+            if Movement.objects.filter(bank_id=entry["Ref. v/d verrichting"]).exists():
+                for_report["skip_because_already_imported"].append(movement)
+                continue
 
-        movement_that_might_be_the_same = Movement.objects.filter(date=movement.date, amount=movement.amount, kind=movement.kind, bank_id__isnull=True)
+            movement_that_might_be_the_same = Movement.objects.filter(date=movement.date, amount=movement.amount, kind=movement.kind, bank_id__isnull=True)
 
-        if movement_that_might_be_the_same.exists():
-            for_report["movement_that_might_be_the_same"].Append((movement, movement_that_might_be_the_same[0]))
-            continue
+            if movement_that_might_be_the_same.exists():
+                for_report["movement_that_might_be_the_same"].Append((movement, movement_that_might_be_the_same[0]))
+                continue
 
-        title = guess_title(movement, entry)
-        print entry["Mededeling 1 :"], "->", title, movement
+            title = guess_title(movement, entry)
+
+            if title is None:
+                for_report["need_title"].append(movement)
+            else:
+                movement.title = title
+                for_report["guessed_title"].append(movement)
 
 
 def guess_title(movement, entry):
