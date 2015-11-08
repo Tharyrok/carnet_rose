@@ -5,11 +5,14 @@ from StringIO import StringIO
 from .models import Movement
 
 def handle_recordbank_csv(csv_file):
-    for entry in csv.DictReader(StringIO("\r\n".join(csv_file.read().split("\n")[1:]) + "\r\n"), delimiter=";"):
-        # I've already imported this movement, don't do anything
-        if Movement.objects.filter(bank_id=entry["Ref. v/d verrichting"]).exists():
-            continue
+    for_report = {
+        "movement_that_might_be_the_same": [],
+        "need_title": [],
+        "guessed_title": [],
+        "skip_because_already_imported": [],
+    }
 
+    for entry in csv.DictReader(StringIO("\r\n".join(csv_file.read().split("\n")[1:]) + "\r\n"), delimiter=";"):
         movement = Movement()
         movement.bank_id = entry["Ref. v/d verrichting"]
         movement.date = datetime.strptime(entry["Datum v. verrichting"], "%d-%m-%Y").date()
@@ -29,7 +32,19 @@ def handle_recordbank_csv(csv_file):
 
         movement.title = "FIXME"
 
-        print movement
+        # I've already imported this movement, don't do anything
+        if Movement.objects.filter(bank_id=entry["Ref. v/d verrichting"]).exists():
+            for_report["skip_because_already_imported"].append(movement)
+            continue
+
+        movement_that_might_be_the_same = Movement.objects.filter(date=movement.date, amount=movement.amount, kind=movement.kind, bank_id__isnull=True)
+
+        if movement_that_might_be_the_same.exists():
+            for_report["movement_that_might_be_the_same"].Append((movement, movement_that_might_be_the_same[0]))
+            continue
+
+        title = guess_title(movement, entry)
+        print entry["Mededeling 1 :"], "->", title, movement
 
 
 def guess_title(movement, entry):
