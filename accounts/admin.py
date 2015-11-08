@@ -13,7 +13,7 @@ en_formats.DATE_FORMAT = "Y-m-d"
 class MovementAdmin(VersionAdmin):
     fieldsets = (
         (None, {
-            "fields": (("date", "amount"), ("title", "kind"), ("comment",))
+            "fields": (("date", "amount"), ("title", "kind"), ("comment",), ("bank_id",))
         }),
     )
 
