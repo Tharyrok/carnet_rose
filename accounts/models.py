@@ -9,7 +9,7 @@ class Movement(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     kind = models.CharField(choices=(('credit', 'Crédit'), ('debit', 'Débit')), max_length=6)
 
-    bank_id = models.CharField(max_length=255, unique=True, null=True, blank=True, editable=False)
+    bank_id = models.CharField(max_length=255, unique=True, null=True, blank=True)
 
     comment = models.TextField(null=True, blank=True)
 
