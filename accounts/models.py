@@ -21,3 +21,8 @@ class Movement(models.Model):
 
     def __unicode__(self):
         return "[%s] %s %s%s" % (self.date.strftime("%F"), self.title, "+" if self.kind == "credit" else "-", self.amount)
+
+
+class ImportReport(models.Model):
+    datetime = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
