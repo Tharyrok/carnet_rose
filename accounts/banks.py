@@ -30,3 +30,32 @@ def handle_recordbank_csv(csv_file):
         movement.title = "FIXME"
 
         print movement
+
+
+def guess_title(movement, entry):
+    if movement.kind == "debit" and entry["Rekening tegenpartij"] == "BE52 6528 3497 8409":
+        return "Frais Bancaires"
+
+    if movement.kind == "debit" and entry["Rekening tegenpartij"] == "GB24 MIDL 4005 1570 5243 70":
+        return "Commande Olimex UK"
+
+    if movement.kind == "debit":
+        return None
+
+    # everything is a credit starting from here
+
+    title = entry["Mededeling 1 :"]
+
+    if movement.amount in (6, 8, 10):
+        return "Redevance VPN"
+
+    if "cotisation" in title.lower() and movement.amount < 70:
+        return "Cotisation"
+
+    if "cube order" in title.lower() or "order" in title.lower() or "brique" in title.lower():
+        return "Commande de Brique Internet"
+
+    if 60 <= movement.amount <= 80:
+        return "Commande de Brique Internet"
+
+    return None
