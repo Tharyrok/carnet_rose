@@ -56,6 +56,8 @@ def handle_recordbank_csv(csv_file):
 
             movement.save()
 
+    return for_report
+
 
 def guess_title(movement, entry):
     if movement.kind == "debit" and entry["Rekening tegenpartij"] == "BE52 6528 3497 8409":
