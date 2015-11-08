@@ -37,7 +37,7 @@ def handle_recordbank_csv(csv_file):
 
             # I've already imported this movement, don't do anything
             if Movement.objects.filter(bank_id=entry["Ref. v/d verrichting"]).exists():
-                for_report["skip_because_already_imported"].append(movement)
+                for_report["skip_because_already_imported"].append(Movement.objects.get(bank_id=entry["Ref. v/d verrichting"]))
                 continue
 
             movement_that_might_be_the_same = Movement.objects.filter(date=movement.date, amount=movement.amount, kind=movement.kind, bank_id__isnull=True)
