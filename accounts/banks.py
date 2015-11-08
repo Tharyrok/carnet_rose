@@ -43,7 +43,7 @@ def handle_recordbank_csv(csv_file):
             movement_that_might_be_the_same = Movement.objects.filter(date=movement.date, amount=movement.amount, kind=movement.kind, bank_id__isnull=True)
 
             if movement_that_might_be_the_same.exists():
-                for_report["movement_that_might_be_the_same"].Append((movement, movement_that_might_be_the_same[0]))
+                for_report["movement_that_might_be_the_same"].append((movement, movement_that_might_be_the_same[0]))
                 continue
 
             title = guess_title(movement, entry)
