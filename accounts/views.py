@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 
+from .models import ImportReport
 from .forms import CSVUploaderForm
 from . import banks
 
@@ -19,4 +20,10 @@ class UploadRecordBankCsv(View):
                 "form": form,
             })
 
-        report_id = banks.handle_recordbank_csv(form.cleaned_data["csv_file"])
+        report_data = banks.handle_recordbank_csv(form.cleaned_data["csv_file"])
+
+        report = ImportReport.objects.create(content=render(request, "accounts/generate_report.haml", {
+            "data": report_data,
+        }).content)
+
+        return redirect("accounts_report_page", args=(report.id,))
