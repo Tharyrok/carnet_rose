@@ -31,7 +31,7 @@ def handle_recordbank_csv(csv_file):
             else:
                 movement.kind = "credit"
 
-            movement.comment = "From: %s\nCommunition: '%s'" % (entry["Naam v/d tegenpartij :"], entry["Mededeling 1 :"])
+            movement.comment = "From: %s\nCommunication: '%s'" % (entry["Naam v/d tegenpartij :"], entry["Mededeling 1 :"])
 
             movement.title = "FIXME"
 
