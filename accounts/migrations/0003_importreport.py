@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='ImportReport',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('datetime', models.DateTimeField(auto_now_add=True)),
+                ('created_on', models.DateTimeField(auto_now_add=True)),
                 ('content', models.TextField()),
             ],
         ),

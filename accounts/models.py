@@ -24,5 +24,5 @@ class Movement(models.Model):
 
 
 class ImportReport(models.Model):
-    datetime = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
