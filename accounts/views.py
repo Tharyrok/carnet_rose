@@ -26,4 +26,4 @@ class UploadRecordBankCsv(View):
             "data": report_data,
         }).content)
 
-        return redirect("accounts_report_page", args=(report.id,))
+        return redirect("accounts_importreport_detail", report.id)
