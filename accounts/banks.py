@@ -19,7 +19,7 @@ def handle_recordbank_csv(csv_file):
             movement = Movement()
             movement.bank_id = entry["Ref. v/d verrichting"]
             movement.date = datetime.strptime(entry["Datum v. verrichting"], "%d-%m-%Y").date()
-            movement.amount = float(entry["Bedrag v/d verrichting"].replace(".", "").replace(",", "."))
+            movement.amount = float(entry["Bedrag v/d verrichting"].replace(".", "").replace(",", ".")) + (int(entry["Munt"]) * 0.01)
 
             if movement.amount < 0:
                 movement.kind = "debit"
