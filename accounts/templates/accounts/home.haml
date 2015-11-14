@@ -23,7 +23,7 @@
           %th Credit
         -for movement in movement_year.list
           %tr
-            %td
+            %td= forloop.revcounter
             %td= movement.date
             %td= movement.title
             %td.money
