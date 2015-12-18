@@ -29,6 +29,9 @@ class Member(models.Model):
     vpn = models.BooleanField(default=False, verbose_name="a un abonnement vpn")
     cube = models.BooleanField(default=False, verbose_name="possède une brique")
 
+    added_on = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
     def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
