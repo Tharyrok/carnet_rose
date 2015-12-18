@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'reversion',
     'bootstrap3',
+    'carnet_rose',
     'members',
     'accounts',
 )
