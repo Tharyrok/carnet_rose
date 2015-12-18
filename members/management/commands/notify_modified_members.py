@@ -10,16 +10,17 @@ from members.models import Member
 
 
 email_template = """\
-{% load getattribute %}
-Hello everyone,
+{% load getattribute %}Hello everyone,
 
 Here are the modified and created user entries from yesterday :
 {% for entry, users in data.created %}
 '{{ entry.object }}' created by {{ users }}:
-{% for field in fields|only_existing:entry %}* {% if field.verbose_name %}{{ field.verbose_name }}{% else %}{{ field.name }}{% endif %}: {{ entry|get_field:field }}
+{% for field in fields|only_existing:entry %}* {% if field.verbose_name %}{{ field.verbose_name|safe }}{% else %}{{ field.name }}{% endif %}: {{ entry|get_field:field }}
 {% endfor %}{% endfor %}
 {% for new, old, users in data.modified %}
-{% endfor %}
+'{{ new.object }}' modified by {{ users }}:
+{% for field in new|only_modified:old %}* {% if field.verbose_name %}{{ field.verbose_name|safe }}{% else %}{{ field.name }}{% endif %}: '{{ old|get_field:field }}' -> '{{ new|get_field:field }}'
+{% endfor %}{% endfor %}
 
 Thanks for your work <3
 """

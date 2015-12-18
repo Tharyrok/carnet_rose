@@ -23,3 +23,10 @@ def only_existing(fields_list, entry):
     for i in fields_list:
         if entry.field_dict[i.name]:
             yield i
+
+
+@register.filter
+def only_modified(new, old):
+    for i in filter(lambda x: x.name not in ("id", "added_on", "last_modified"), new.object._meta.fields):
+        if new.field_dict[i.name] != old.field_dict[i.name]:
+            yield i
