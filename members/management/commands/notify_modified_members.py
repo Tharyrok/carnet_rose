@@ -53,6 +53,10 @@ class Command(BaseCommand):
             else:
                 data["modified"].append([yesterday_modifications[0], older_modifications[0], users_that_has_modified_the_documented])
 
+        if not data["created"] and not data["modified"]:
+            # don't send empty email
+            return
+
         fields = filter(lambda x: x.name not in ('added_on', 'last_modified', 'id', 'pk'), Member._meta.fields)
 
         email_content = Template(email_template).render(Context({
