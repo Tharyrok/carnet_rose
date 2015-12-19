@@ -1,6 +1,6 @@
 import reversion
 
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 from django.core.mail import send_mail
 from django.core.management.base import BaseCommand
@@ -38,16 +38,17 @@ class Command(BaseCommand):
 
         today = date.today()
         yesterday = today - timedelta(days=1)
+        very_old = datetime.now() - timedelta(days=100)  # used as an hack in case "last_modified" is None from old data
         modified_yesterday_members = Member.objects.filter(last_modified__lt=date.today(), last_modified__gt=yesterday)
 
         for member_revisions in map(reversion.get_for_object, modified_yesterday_members):
             member_revisions = list(member_revisions.get_unique())
 
-            yesterday_modifications = filter(lambda x: x.field_dict["last_modified"].date() == yesterday, member_revisions)
+            yesterday_modifications = filter(lambda x: x.field_dict.get("last_modified", very_old).date() == yesterday, member_revisions)
 
             users_that_has_modified_the_documented = u", ".join(set(map(lambda x: unicode(x.revision.user), yesterday_modifications)))
 
-            older_modifications = filter(lambda x: x.field_dict["last_modified"].date() < yesterday, member_revisions)
+            older_modifications = filter(lambda x: x.field_dict.get("last_modified", very_old).date() < yesterday, member_revisions)
             if not older_modifications:
                 data["created"].append([yesterday_modifications[0], users_that_has_modified_the_documented])
             else:
