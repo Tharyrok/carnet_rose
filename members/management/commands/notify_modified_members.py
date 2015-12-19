@@ -43,9 +43,20 @@ class Command(BaseCommand):
         for member_revisions in map(reversion.get_for_object, modified_yesterday_members):
             member_revisions = list(member_revisions.get_unique())
 
+            old_data = filter(lambda x: x.field_dict["last_modified"] is None, member_revisions)
+            member_revisions = filter(lambda x: x.field_dict["last_modified"] is not None, member_revisions)
+
+            # old data
+            if not member_revisions:
+                continue
+
             yesterday_modifications = filter(lambda x: x.field_dict["last_modified"].date() == yesterday, member_revisions)
 
             users_that_has_modified_the_documented = u", ".join(set(map(lambda x: unicode(x.revision.user), yesterday_modifications)))
+
+            if old_data and len(member_revisions) == 1:
+                data["modified"].append([yesterday_modifications[0], old_data[0], users_that_has_modified_the_documented])
+                continue
 
             older_modifications = filter(lambda x: x.field_dict["last_modified"].date() < yesterday, member_revisions)
             if not older_modifications:
