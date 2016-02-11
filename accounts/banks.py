@@ -17,7 +17,7 @@ def handle_recordbank_csv(csv_file):
     with transaction.atomic():
         for entry in csv.DictReader(StringIO("\r\n".join(csv_file.read().split("\n")[1:]) + "\r\n"), delimiter=";"):
             movement = Movement()
-            movement.bank_id = entry["Ref. v/d verrichting"]
+            movement.bank_id = entry["Valutadatum"]
             movement.date = datetime.strptime(entry["Datum v. verrichting"], "%d-%m-%Y").date()
             movement.amount = float(entry["Bedrag v/d verrichting"].replace(".", "").replace(",", ".")) + (int(entry["Munt"]) * 0.01)
 
