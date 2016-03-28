@@ -1,5 +1,5 @@
-django>=1.7
-django-reversion
+django<1.9
+django-reversion<1.10
 psycopg2
 django-admin-bootstrapped>=2.0
 django_extensions
