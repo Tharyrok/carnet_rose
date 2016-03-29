@@ -29,3 +29,6 @@ class ImportReport(models.Model):
 
     def __unicode__(self):
         return u"Import report runned at %s" % (self.created_on.strftime("%F %X"))
+
+class TestModel(models.Model):
+    name = models.CharField(max_length=50)

@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'carnet_rose',
     'members',
     'accounts',
+    'admin_views',
 )
 
 MIDDLEWARE_CLASSES = (
