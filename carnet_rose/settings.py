@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = (
-    'django_admin_bootstrapped',
+    'admin_views',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +42,6 @@ INSTALLED_APPS = (
     'carnet_rose',
     'members',
     'accounts',
-    'admin_views',
 )
 
 MIDDLEWARE_CLASSES = (

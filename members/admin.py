@@ -2,6 +2,7 @@
 
 import reversion
 from django.contrib import admin
+from admin_views.admin import AdminViews
 from .models import Member
 
 
@@ -23,7 +24,7 @@ class IsStillMember(admin.SimpleListFilter):
             return queryset.filter(member_end__isnull=False)
 
 
-class MemberAdmin(reversion.VersionAdmin):
+class MemberAdmin(reversion.VersionAdmin, AdminViews):
     list_display = ('first_name', 'last_name', 'last_paid_date', 'email', 'vpn', 'cube', 'is_not_a_member_yet')
     list_filter = ('last_paid_date', 'ca_member', IsStillMember, 'vpn', 'cube', 'is_not_a_member_yet')
     radio_fields = {"juridical_form": admin.HORIZONTAL}
@@ -45,6 +46,10 @@ class MemberAdmin(reversion.VersionAdmin):
             'fields': ('member_end', 'why_member_end'),
             'classes': ('collapse',),
         }),
+    )
+
+    admin_views = (
+       ('example', 'http://example.com'),
     )
 
 
