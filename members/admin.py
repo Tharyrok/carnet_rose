@@ -49,7 +49,8 @@ class MemberAdmin(reversion.VersionAdmin, AdminViews):
     )
 
     admin_views = (
-       ('example', 'http://example.com'),
+       ('Neutrinet Public Accounting Page', '/accounts'),
+       ('Upload Record Bank CSV ', '/accounts/upload_record_bank_csv'),
     )
 
 
