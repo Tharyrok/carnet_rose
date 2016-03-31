@@ -2,15 +2,11 @@
 
 from django.contrib import admin
 
-from admin_views.admin import AdminViews
-
 from django.conf.locale.en import formats as en_formats
 
 from reversion.admin import VersionAdmin
 
 from .models import Movement
-
-from .models import TestModel
 
 en_formats.DATE_FORMAT = "Y-m-d"
 
@@ -45,15 +41,4 @@ class MovementAdmin(VersionAdmin):
 
     title_column.short_description = "Title"
 
-class FooTestAdmin(AdminViews):
-    admin_views = (
-            # ('Process This', 'process'),              # Admin view
-            ('Go to LJW', 'http://www.ljworld.com'),  # Direct URL
-    )
-
-    # def process(self, *args, **kwargs):
-    #     return redirect('http://www.cnn.com')
-
-
 admin.site.register(Movement, MovementAdmin)
-admin.site.register(TestModel, FooTestAdmin)
